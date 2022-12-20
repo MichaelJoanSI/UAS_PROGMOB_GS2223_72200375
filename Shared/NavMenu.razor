@@ -1,0 +1,42 @@
+﻿<div class="top-row ps-3 navbar navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">BlazorAppWasm</a>
+        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</div>
+
+<MudNavMenu>
+    <MudNavLink Href="/" Match="NavLinkMatch.All">Dashboard</MudNavLink>
+    <MudNavLink Href="/nav-link" Match="NavLinkMatch.Prefix">Home</MudNavLink>
+    <MudNavLink Href="/nav-link" Match="NavLinkMatch.Prefix">Counter</MudNavLink>
+    <MudNavLink Href="/nav-link" Match="NavLinkMatch.Prefix">Fetch Data</MudNavLink>
+    <MudNavGroup Title="Settings" Expanded="true">
+        <MudNavLink Href="/security"  Match="NavLinkMatch.Prefix">Security</MudNavLink>
+    </MudNavGroup>
+    <MudNavLink Href="/about"  Match="NavLinkMatch.Prefix">About</MudNavLink>
+    <MudNavLink Href="/karyawan"  Match="NavLinkMatch.Prefix">Karyawan List</MudNavLink>
+    <MudNavLink Href="/user"  Match="NavLinkMatch.Prefix">Data Users</MudNavLink>
+    <MudNavLink Href="/mahasiswa"  Match="NavLinkMatch.Prefix">Mahasiswa List</MudNavLink>
+    <MudNavGroup Title="Cultures" Expanded="true">
+        <MudNavLink Href="/culture-example-1"  Match="NavLinkMatch.Prefix">Culture Example 1</MudNavLink>
+        <MudNavLink Href="/culture-example-2"  Match="NavLinkMatch.Prefix">Culture Example 2</MudNavLink>
+    </MudNavGroup>
+    <MudNavLink Href="/post"  Match="NavLinkMatch.Prefix">Post</MudNavLink>
+    <MudNavGroup Title="Images" Expanded="true">
+        <MudNavLink Href="/show-image-1"  Match="NavLinkMatch.Prefix">Images 1</MudNavLink>
+        <MudNavLink Href="/show-image-2"  Match="NavLinkMatch.Prefix">Images 2</MudNavLink>
+    </MudNavGroup>
+</MudNavMenu>
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}

@@ -1,0 +1,67 @@
+@page "/user" 
+@using System.Net.Http 
+@using System.Net.Http.Json 
+@inject HttpClient Http 
+@inject NavigationManager UriHelper 
+  
+ @if(usr==null) 
+ { 
+    <p><em>Loading...</em></p> 
+ } 
+ else 
+ { 
+    <table class="table"> 
+        <thead> 
+            <tr> 
+                <th>Id</th> 
+                <th>Name</th> 
+                <th>Username</th> 
+                <th>Email</th>
+                <th>Address</th>
+                <th>Phone</th>
+                <th>Website</th>
+                <th>Company</th>
+                </tr> 
+                </thead> 
+                <tbody> 
+                    @foreach (var u in usr) { 
+                        <tr> 
+                            <td>@u.id</td> 
+                            <td>@u.name</td> 
+                            <td>@u.username</td> 
+                            <td>@u.email</td>
+                            <td>@u.address</td>
+                            <td>@u.phone</td>
+                            <td>@u.website</td>
+                            <td>@u.company</td> 
+                            </tr> 
+                        } 
+                </tbody> 
+                </table> 
+ } 
+  
+ @code { 
+ private Us[]? usr; 
+  
+ protected override async Task OnInitializedAsync() { 
+    usr = await Http.GetFromJsonAsync<Us[]>("https://jsonplaceholder.typicode.com/users"); 
+        } 
+  
+ public class Us { 
+ public int id { get; set;} 
+  
+ public int name { get; set;} 
+  
+ public string username { get; set;} 
+  
+ public string email {get;set;}
+
+ public string address {get;set;}
+
+ public string phone {get;set;}
+
+ public string website {get;set;}
+
+ public string company {get;set;} 
+ }
+} 

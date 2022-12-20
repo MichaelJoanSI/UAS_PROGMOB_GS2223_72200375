@@ -1,0 +1,104 @@
+@page "/mahasiswa/tambah"
+@using System.Net.Http
+@using System.Net.Http.Json
+@using System.ComponentModel.DataAnnotations
+@inject HttpClient Http
+
+<PageTitle>Tambah Mahasiswa Baru</PageTitle>
+
+<h1>Tambah Data Mahasiswa SI UKDW</h1>
+
+<p>This component demonstrates fetching data Mahasiswa from the server.</p>
+
+@if (mhs == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <EditForm Model="@mhs" OnValidSubmit="@AddMhs">
+        <DataAnnotationsValidator />
+        <div class="form-group row">
+            <label for="nama" class="col-sm-2 col-form-label">
+                Nama
+            </label>
+            <div class="col-sm-10">
+                <InputText id="nama" class="form-control" placeholder="Nama"
+                        @bind-Value="mhs.nama" />
+                <ValidationMessage For="@(() => mhs.nama)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="nim" class="col-sm-2 col-form-label">
+                Nim
+            </label>
+            <div class="col-sm-10">
+                <InputText id="nim" class="form-control" placeholder="NIM"
+                        @bind-Value="mhs.nim" />
+                <ValidationMessage For="@(() => mhs.nim)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="alamat" class="col-sm-2 col-form-label">
+                Alamat
+            </label>
+            <div class="col-sm-10">
+                <InputText id="alamat" class="form-control" placeholder="Alamat"
+                        @bind-Value="mhs.alamat" />
+                <ValidationMessage For="@(() => mhs.alamat)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="email" class="col-sm-2 col-form-label">
+                Email
+            </label>
+            <div class="col-sm-10">
+                <InputText id="email" class="form-control" placeholder="Email"
+                        @bind-Value="mhs.email" />
+                <ValidationMessage For="@(() => mhs.email)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="foto" class="col-sm-2 col-form-label">
+                Foto
+            </label>
+            <div class="col-sm-10">
+                <InputText id="foto" class="form-control" placeholder="Foto"
+                        @bind-Value="mhs.foto" />
+                <ValidationMessage For="@(() => mhs.foto)" />
+            </div>
+        </div>
+        <button type="submit">Simpan</button>
+    </EditForm>
+}
+
+@code {
+    private Mahasiswa mhs = new();
+
+    public async Task AddMhs(){
+        mhs.nim_progmob = "72200375";
+        await Http.PostAsJsonAsync("https://kpsi.fti.ukdw.ac.id/api/progmob/mhs/create", mhs);
+    }
+
+    public class Mahasiswa
+    {
+        public int? id { get; set; }
+
+        [Required(ErrorMessage = "Nama Belum Diisi")]
+        public string nama { get; set; }
+
+        [Required(ErrorMessage = "NIM Belum Diisi")]
+        public string nim { get; set; }
+
+        [Required(ErrorMessage = "Alamat Belum Diisi")]
+        public string alamat { get; set; }
+
+        [Required(ErrorMessage = "Email Belum Diisi")]
+        public string email { get; set; }
+
+        [Required(ErrorMessage = "Foto Belum Diisi")]
+        public string foto { get; set; }
+
+        public string nim_progmob { get; set; }
+    }
+}

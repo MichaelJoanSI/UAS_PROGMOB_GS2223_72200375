@@ -1,0 +1,51 @@
+@page "/post" 
+@using System.Net.Http 
+@using System.Net.Http.Json 
+@inject HttpClient Http 
+@inject NavigationManager UriHelper 
+  
+ @if(pts==null) 
+ { 
+    <p><em>Loading...</em></p> 
+ } 
+ else 
+ { 
+    <table class="table"> 
+        <thead> 
+            <tr> 
+                <th>User Id</th> 
+                <th>Id</th> 
+                <th>Title</th> 
+                <th>Body</th> 
+                </tr> 
+                </thead> 
+                <tbody> 
+                    @foreach (var p in pts) { 
+                        <tr> 
+                            <td>@p.userId</td> 
+                            <td>@p.id</td> 
+                            <td>@p.title</td> 
+                            <td>@p.body</td> 
+                            </tr> 
+                        } 
+                </tbody> 
+                </table> 
+ } 
+  
+ @code { 
+ private Posts[]? pts; 
+  
+ protected override async Task OnInitializedAsync() { 
+    pts = await Http.GetFromJsonAsync<Posts[]>("https://jsonplaceholder.typicode.com/posts"); 
+        } 
+  
+ public class Posts { 
+ public int userId { get; set;} 
+  
+ public int id { get; set;} 
+  
+ public string title { get; set;} 
+  
+ public string body{get;set;} 
+ } 
+}
